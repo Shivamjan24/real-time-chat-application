@@ -7,6 +7,7 @@ export const UseAuth= create((set)=>({
     isSigningUp:false,
     isLoggingIn:false,
     isCheckingAuth:false,
+    isUpdatingProfile:false,
 
     checkAuth: async()=>{
         try {
@@ -28,11 +29,13 @@ export const UseAuth= create((set)=>({
             set({isSigningUp:true})
             const res=await axiosInstance.post("/auth/signup",info)
             if(res.data)
-            toast.success("User created successfully")
-            set({authUser:res.data,isSigningUp:false})
+            {
+                toast.success("User created successfully")
+                set({authUser:res.data,isSigningUp:false})
+            }
         } 
         catch (error) {
-            toast.success(error.response.data.message)
+            toast.error(error.response.data.message)
             console.log("error in signing up:"+error)
         }
         finally{
@@ -45,9 +48,13 @@ export const UseAuth= create((set)=>({
             set({isLoggingIn:true})
             const res=await axiosInstance.post("/auth/login",info)
             if(res.data)
-            set({authUser:res.data,isLoggingIn:false})
+            {
+                toast.success("Logged in successfully")
+                set({authUser:res.data,isLoggingIn:false})
+            }
         } 
         catch (error) {
+            toast.error(error.response.data.message)
             console.log("error in logging in:"+error)
         }
         finally{
@@ -61,7 +68,27 @@ export const UseAuth= create((set)=>({
             set({authUser:null})
         } 
         catch (error) {
+            toast.error(error.response.data.message)
             console.log("error in logging out:"+error)
+        }
+    },
+
+    updateprofile: async(info)=>{
+        try {
+            set({isUpdatingProfile:true})
+            const res=await axiosInstance.put("/auth/update-profile",info)
+            if(res.data)
+            {
+                toast.success("Profile updated successfully")
+                set({authUser:res.data,isUpdatingProfile:false})
+            }
+        } 
+        catch (error) {
+            toast.error(error.response.data.message)
+            console.log("error in updating profile:"+error)
+        }
+        finally{
+            set({isUpdatingProfile:false})
         }
     }
 }))

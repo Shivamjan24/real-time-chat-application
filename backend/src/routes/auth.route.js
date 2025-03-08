@@ -14,7 +14,7 @@ router.post("/login",login)
 
 router.post("/logout",logout)
 
-router.get("/update-profile",protectroute,updateprofile)
+router.put("/update-profile",protectroute,updateprofile)
 
 router.get("/check",protectroute,checkauth)
 

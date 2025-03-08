@@ -14,11 +14,11 @@ const App=()=>{
   const {authUser,checkAuth,isCheckingAuth}=UseAuth()
   useEffect(() => {
     checkAuth();
-  }, [checkAuth]);
+  }, [authUser]);
 
   return(
     <div>
-      
+      <Navbar/>
       <Routes>
         <Route path="/" element={authUser ? <Homepage/> : <Navigate to="/login"/>}/>
         <Route path="/signup" element={!authUser ? <Signup/> : <Navigate to="/"/>}/>
