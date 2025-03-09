@@ -23,7 +23,7 @@ const Profilepage = () => {
     }
   }
   return (
-    <div className="max-w-1/2 mx-auto items-center justify-center my-12 backdrop-opacity-50">
+    <div className="max-w-1/2 mx-auto max-h-full items-center justify-center my-12 backdrop-opacity-50">
       <div className="py-5 text-center">
         <h1 className="text-xl font-bold mb-2">Profile</h1>
         <p className="text-lg font-medium mb-3">Your Profile Information</p>
@@ -55,27 +55,35 @@ const Profilepage = () => {
                 />
               </label>
             </div>
-            <p className="text-sm text-zinc-400">
+            <p className="text-sm text-primary">
               {isUpdatingProfile ? "Uploading..." : "Click the camera icon to update your photo"}
             </p>
           </div>
           <div className="mt-6 mb-2 flex gap-1">
             <User size={14}/>
-            <p className="text-sm text-zinc-400">Full Name</p>
+            <p className="text-sm text-primary">Full Name</p>
           </div>
-          <div className="w-full h-10 border-1 rounded-lg py-2">
-            <span className="text-yellow-600">{authUser?.fullname}</span>
+          <div className="w-full h-10 border-1 rounded-lg py-2 text-left pl-4 font-medium">
+            <span className="text-neutral">{authUser?.fullname}</span>
           </div>
           <div className="mt-6 mb-2 flex gap-1">
             <Mail size={14}/>
-            <p className="text-sm text-zinc-400">Email Address</p>
+            <p className="text-sm text-primary">Email Address</p>
           </div>
-          <div className="w-full h-10 border-1 rounded-lg py-2">
-            <span className="text-yellow-600">{authUser?.email}</span>
+          <div className="w-full h-10 border-1 rounded-lg py-2 text-left pl-4 font-medium">
+            <span className="text-neutral">{authUser?.email}</span>
           </div>
       </div>
       <div className="text-left mt-10">
         <h1 className="text-xl font-bold">Account Information</h1>
+      </div>
+      <div className="flex justify-between mt-4 border-b-1 py-4">
+        <h1 className="font-medium text-primary">Member Since</h1>
+        <p className="text-sm text-neutral">{authUser.createdAt?.split("T")[0]}</p>
+      </div>
+      <div className="flex justify-between mt-4">
+        <h1 className="font-medium text-primary">Account Status</h1>
+        <p className="text-sm text-green-600">Active</p>
       </div>
     </div>
   )

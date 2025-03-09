@@ -8,16 +8,20 @@ import Navbar from "./components/Navbar"
 import { UseAuth } from "./store/UseAuth"
 import Signup from "./pages/Signup"
 import { useEffect } from "react"
+import { UseTheme } from "./store/UseTheme"
 
 
 const App=()=>{
   const {authUser,checkAuth,isCheckingAuth}=UseAuth()
+
+  const {theme}=UseTheme()
+
   useEffect(() => {
     checkAuth();
   }, [authUser]);
 
   return(
-    <div>
+    <div data-theme={theme}>
       <Navbar/>
       <Routes>
         <Route path="/" element={authUser ? <Homepage/> : <Navigate to="/login"/>}/>
