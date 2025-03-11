@@ -33,6 +33,7 @@ export const sendmessage= async(req,res)=>{
         const senderid=req.user._id
         const {id:receiverid}=req.params
         const {text,image}=req.body
+        console.log(text)
 
         let imagee
         if(image){

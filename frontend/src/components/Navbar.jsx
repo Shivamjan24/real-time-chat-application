@@ -6,7 +6,7 @@ import { UseAuth } from '../store/UseAuth'
 const Navbar = () => {
   const {authUser,logout}= UseAuth()
   return (
-    <div className="flex flex-row justify-between p-2 bg-neutral">
+    <div className="flex flex-row justify-between p-2">
       <div className="flex flex-row items-center">
         <Link to={"/"}>
           <div>
