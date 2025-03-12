@@ -21,7 +21,7 @@ const Navbar = () => {
         <div className="mx-2">
           <Link to={"/settings"}>
           <Settings size={18} className="btn-primary"/>
-          <p className="text-md font-md text-primary">Settings</p>
+          <p className="text-md font-md text-primary hidden lg:block">Settings</p>
           </Link>
         </div>
         {authUser && 
@@ -29,13 +29,13 @@ const Navbar = () => {
           <div className="mx-2">
           <Link to={"/profilepage"}>
           <User size={18} className="btn-primary"/>
-          <p className="text-md font-md text-primary">Profile</p>
+          <p className="text-md font-md text-primary hidden lg:block">Profile</p>
           </Link>
           </div>
           <div className="mx-2">
           <button onClick={logout} className="cursor-pointer">
           <LogOut size={18} className="btn-primary"/>
-          <p className="text-md font-md text-primary">Logout</p>
+          <p className="text-md font-md text-primary hidden lg:block">Logout</p>
           </button>
           </div>
         </>}

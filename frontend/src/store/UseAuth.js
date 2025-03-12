@@ -1,20 +1,49 @@
 import {create} from "zustand"
 import axiosInstance from "../lib/axios"
 import toast from "react-hot-toast"
+import {io} from "socket.io-client"
+const BASE_URL="http://localhost:5001"
 
-export const UseAuth= create((set)=>({
+export const UseAuth= create((set,get)=>({
     authUser:null,
     isSigningUp:false,
     isLoggingIn:false,
     isCheckingAuth:false,
     isUpdatingProfile:false,
+    onlineUsers:[],
+    socket:null,
+
+    socketconnected:()=>{
+        if(!get().authUser || get().socket?.connected)
+            return;
+        
+        const socket= io(BASE_URL,{
+            query:{
+                userid:get().authUser?._id
+            }
+        })
+        console.log(socket)
+        socket.connect()
+
+        socket.on("getonlineusers",(userids)=>{
+            set({onlineUsers:userids})
+        })
+
+        console.log(get().onlineUsers)
+        set({socket:socket})
+        
+    },
 
     checkAuth: async()=>{
         try {
             set({isCheckingAuth:true})
             const response= await axiosInstance.get("/auth/check")
             if(response.data)
+            {
                 set({authUser:response.data,isCheckingAuth:false})
+                get().socketconnected()
+            }
+            
         } 
         catch (error) {
             console.log("error in checking auth:"+error)
@@ -32,7 +61,9 @@ export const UseAuth= create((set)=>({
             {
                 toast.success("User created successfully")
                 set({authUser:res.data,isSigningUp:false})
+                get().socketconnected()
             }
+            
         } 
         catch (error) {
             toast.error(error.response.data.message)
@@ -51,7 +82,9 @@ export const UseAuth= create((set)=>({
             {
                 toast.success("Logged in successfully")
                 set({authUser:res.data,isLoggingIn:false})
+                get().socketconnected()
             }
+            
         } 
         catch (error) {
             toast.error(error.response.data.message)
@@ -64,6 +97,8 @@ export const UseAuth= create((set)=>({
 
     logout: async()=>{
         try {
+            get().socketdisconnected()
+            toast.success("Logged out successfully");
             await axiosInstance.post("/auth/logout")
             set({authUser:null})
         } 
@@ -90,6 +125,16 @@ export const UseAuth= create((set)=>({
         finally{
             set({isUpdatingProfile:false})
         }
-    }
+    },
+
+    socketdisconnected: ()=>{
+        if(get().socket?.connected)
+        {
+            console.log(get().socket)
+            get().socket.disconnect()
+            set({socket:null})
+        }
+            
+    },
 }))
   

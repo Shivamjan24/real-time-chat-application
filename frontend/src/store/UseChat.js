@@ -35,12 +35,14 @@ export const UseChat= create((set,get)=>({
     sendMessage: async(msg)=>{
         console.log(msg)
         try {
+            let load=toast.loading("Sending Message...")
             const res=await axiosInstance.post(`/messages/send/${get().selectedUser._id}`,msg)
             if(res)
             {
-                console.log(res.data)
+                get().setMessages()
+                toast.dismiss(load)
                 toast.success("message sent successfully")
-                set({messages:[res.data]})
+                console.log(get().messages)
             }
             
         } 

@@ -6,9 +6,9 @@ import { UseChat } from '../store/UseChat'
 
 const ChatContainer = () => {
 
-    const {setMessages}= UseChat()
+    const {setMessages,selectedUser}= UseChat()
 
-    useEffect(()=>{setMessages()},[setMessages])
+    useEffect(()=>{setMessages()},[setMessages,selectedUser])
     return (
     <div>
         <ChatHeader/>

@@ -3,7 +3,7 @@ import { Send } from 'lucide-react'
 
 const DefaultContainer = () => {
   return (
-    <div className="flex flex-col justify-center items-center mt-20">
+    <div className="flex flex-col mx-auto justify-center items-center my-40">
       <div className="mb-5 transition-all animate-bounce">
           <Send size={30} className="btn-primary"/>
       </div>

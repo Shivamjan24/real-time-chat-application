@@ -7,7 +7,7 @@ import { MessageCircle, User,Mail,Lock, Eye, EyeOff } from 'lucide-react'
 
 const Signup = () => {
 
-    const [showPassword,setShowPassword]=useState(true)
+    const [showPassword,setShowPassword]=useState(false)
     const {isSigningUp,signup}=UseAuth()
     const [formdata,setformdata]=useState({fullname:null,email:null,password:null})
 
@@ -31,7 +31,7 @@ const Signup = () => {
       };
 
     return (
-        <div className="grid grid-cols-2 max-h-full">
+        <div className="grid lg:grid-cols-2 max-h-full">
             <div className="flex flex-col py-12">
                 <div className="mt-4 mb-2 mx-auto items-center justify-center">
                     <p className="text-2xl font-bold text-primary">Create Account</p>
@@ -47,7 +47,7 @@ const Signup = () => {
                             <div className="p-2">
                             <User size={16} className="btn-primary"/>
                             </div>
-                            <div>
+                            <div className="w-full">
                             <input type="text" name="fullname" className="rounded-md input input-bordered border-1 border-primary text-primary p-2 my-0.5" placeholder="John Doe" value={formdata.fullname} onChange={(e)=>(setformdata({...formdata,fullname:e.target.value}))}/>
                             </div>
                             </div>
@@ -58,7 +58,7 @@ const Signup = () => {
                             <div className="p-2">
                             <Mail size={16} className="btn-primary"/>
                             </div>
-                            <div>
+                            <div className="w-full">
                             <input type="text" name="email" className="rounded-md p-2 my-0.5 input input-bordered border-1 border-primary text-primary" placeholder="my@gmail.com" value={formdata.email} onChange={(e)=>(setformdata({...formdata,email:e.target.value}))}/>
                             </div>
                             </div>
@@ -69,7 +69,7 @@ const Signup = () => {
                             <div className="p-2">
                             <Lock size={16} className="btn-primary"/>
                             </div>
-                            <div>
+                            <div className="w-full">
                             <input type={showPassword ? "text" : "password"} name="password" className="rounded-md p-2 my-0.5 input input-bordered border-1 border-primary text-primary" placeholder="******" value={formdata.password} onChange={(e)=>(setformdata({...formdata,password:e.target.value}))}/>
                             </div>
                             <div className="p-2">

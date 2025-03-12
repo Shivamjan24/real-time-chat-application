@@ -16,8 +16,9 @@ const MessageInput = () => {
         if(!file.type.startsWith("image/"))
         return toast.error("Please select an image file")
         const reader=new FileReader()
+        reader.readAsDataURL(file)
         reader.onloadend= ()=>{
-            reader.readAsDataURL(file)
+            
             setimage(reader.result)
         }
     }
@@ -44,7 +45,7 @@ const MessageInput = () => {
         }    
     }
     return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full my-2">
     {image && (
     <div className="justify-start pl-2 mb-2 relative">
         <img src={image} className="w-30 h-30 border-1 border-primary"/>
@@ -53,10 +54,10 @@ const MessageInput = () => {
             <X size={15} />
         </button>
     </div>)}
-    <div className="flex gap-1.5">
+    <div className="flex justify-center items-center gap-1.5 w-full">
         <form onSubmit={handlesubmit}>
-        <div className="w-full flex gap-1.5">
-        <input type="text" value={text} onChange={(e)=>{settext(e.target.value)}} className="w-full input input-primary py-2" placeholder="Type a message.."/>
+        <div className="flex gap-1.5 w-full">
+        <input type="text" value={text} onChange={(e)=>{settext(e.target.value)}} className="w-full input input-primary py-2 " placeholder="Type a message.."/>
         <input type="file" className="hidden" ref={fileInputRef} accept="image/*" onChange={handleimageinput}/>
             <button type="button" className={`${image ?"text-green-500" : "text-zinc-300"}`} onClick={()=>fileInputRef.current?.click()}>
             <Image size={30}/>
