@@ -1,6 +1,8 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
 import cloudinary from "../lib/cloudinary.js";
+import { getsocketid } from "../lib/socket.js";
+import { io } from "../lib/socket.js";
 
 export const getsideusers= async (req,res)=>{
     try {
@@ -47,6 +49,9 @@ export const sendmessage= async(req,res)=>{
             image:imagee
         })
         await newmessage.save()
+
+        const recsocketid=getsocketid(receiverid);
+        io.to(recsocketid).emit("newmessage",newmessage);
 
         return res.status(201).json(newmessage)
     } 

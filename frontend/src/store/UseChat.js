@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import axiosInstance from "../lib/axios";
 import toast from "react-hot-toast";
+import { UseAuth } from "./UseAuth";
 
 export const UseChat= create((set,get)=>({
     selectedUser:null,
@@ -39,7 +40,7 @@ export const UseChat= create((set,get)=>({
             const res=await axiosInstance.post(`/messages/send/${get().selectedUser._id}`,msg)
             if(res)
             {
-                get().setMessages()
+                set({messages:[...get().messages,res.data]})
                 toast.dismiss(load)
                 toast.success("message sent successfully")
                 console.log(get().messages)
@@ -49,6 +50,26 @@ export const UseChat= create((set,get)=>({
         catch (error) {
             toast.error(error.response.data.message);
         }
+    },
+
+    subscribeToMessages: ()=>{
+        if(!get().selectedUser)
+            return;
+        const socket=UseAuth.getState().socket
+
+        socket.on("newmessage",(msg)=>{
+            const isMessageSentFromSelectedUser = msg.senderid === get().selectedUser._id;
+            if (!isMessageSentFromSelectedUser) return;
+
+            toast.success("new message recieved!!")
+            set({messages:[...get().messages,msg]})
+        })
+    },
+
+    unsubscribeFromMessages: ()=>{
+        const socket=UseAuth.getState().socket
+
+        socket.off("newmessage")
     },
 
     setSelectedUser:(selectedUser) => set({ selectedUser }),

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { UseChat } from '../store/UseChat'
 import { useEffect } from 'react'
 import { UseAuth } from '../store/UseAuth'
@@ -6,13 +6,27 @@ import { UseAuth } from '../store/UseAuth'
 const ChatBody = () => {
 
     const {authUser}= UseAuth()
-    const {setMessages,messages,selectedUser}= UseChat()
+    const {setMessages,messages,selectedUser,subscribeToMessages,unsubscribeFromMessages}= UseChat()
     
-    
+    const lastMessageRef=useRef(null)
+    useEffect(()=>{
+
+      subscribeToMessages();
+      setMessages();
+
+      return ()=>unsubscribeFromMessages();
+    },[subscribeToMessages,unsubscribeFromMessages,setMessages])
+
+    useEffect(()=>{
+      if(lastMessageRef.current && messages)
+        lastMessageRef.current.scrollIntoView({behaviour:"smooth"})
+    },[messages])
+
+
     return (
-    <div className="mt-4 mb-2 overflow-y-auto relative">
+    <div className="mt-4 mb-2 h-screen overflow-auto">
       {messages.map((msg)=>{
-          return (<div key={msg._id} className={`${msg.senderid==selectedUser._id ? "chat chat-start" : "chat chat-end"}`}>
+          return (<div key={msg._id} ref={lastMessageRef} className={`${msg.senderid==selectedUser._id ? "chat chat-start" : "chat chat-end"}`}>
             <div className="chat-image avatar">
               <div className="w-10 rounded-full">
                 <img

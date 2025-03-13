@@ -21,7 +21,7 @@ const App=()=>{
   }, [authUser]);
 
   return(
-    <div data-theme={theme}>
+    <div data-theme={theme} className=" overflow-hidden">
       <Navbar/>
       <Routes>
         <Route path="/" element={authUser ? <Homepage/> : <Navigate to="/login"/>}/>

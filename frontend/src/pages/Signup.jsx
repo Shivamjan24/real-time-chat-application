@@ -31,8 +31,8 @@ const Signup = () => {
       };
 
     return (
-        <div className="grid lg:grid-cols-2 max-h-full">
-            <div className="flex flex-col py-12">
+        <div className="grid lg:grid-cols-2 h-screen overflow-auto">
+            <div className="flex flex-col py-12 overflow-y-auto">
                 <div className="mt-4 mb-2 mx-auto items-center justify-center">
                     <p className="text-2xl font-bold text-primary">Create Account</p>
                 </div>
@@ -91,7 +91,7 @@ const Signup = () => {
                     </form>
                 </div>
             </div>
-            <div className="flex flex-col py-12">
+            <div className="flex flex-col py-12 overflow-y-auto">
                 <AuthImagePattern
                 title="Join our community"
                 subtitle="Connect with friends, share moments, and stay in touch with your loved ones."

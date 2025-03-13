@@ -24,13 +24,10 @@ export const UseAuth= create((set,get)=>({
         })
         console.log(socket)
         socket.connect()
-
+        set({socket:socket})
         socket.on("getonlineusers",(userids)=>{
             set({onlineUsers:userids})
-        })
-
-        console.log(get().onlineUsers)
-        set({socket:socket})
+        })        
         
     },
 
@@ -134,7 +131,6 @@ export const UseAuth= create((set,get)=>({
             get().socket.disconnect()
             set({socket:null})
         }
-            
     },
 }))
   

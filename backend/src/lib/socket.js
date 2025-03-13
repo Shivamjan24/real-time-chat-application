@@ -29,4 +29,8 @@ io.on("connection",(socket)=>{
     })
 })
 
+export function getsocketid(userid){
+    return userSocket[userid];
+}
+
 export {app,server,io}

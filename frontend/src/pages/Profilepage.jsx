@@ -23,7 +23,7 @@ const Profilepage = () => {
     }
   }
   return (
-    <div className="max-w-1/2 mx-auto max-h-full items-center justify-center my-12 backdrop-opacity-50">
+    <div className="max-w-1/2 mx-auto max-h-full items-center justify-center my-12 backdrop-opacity-50 h-screen overflow-auto px-4">
       <div className="py-5 text-center">
         <h1 className="text-xl font-bold mb-2">Profile</h1>
         <p className="text-lg font-medium mb-3">Your Profile Information</p>

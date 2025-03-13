@@ -45,7 +45,7 @@ const MessageInput = () => {
         }    
     }
     return (
-    <div className="flex flex-col w-full my-2">
+    <div className="flex flex-col w-full relative">
     {image && (
     <div className="justify-start pl-2 mb-2 relative">
         <img src={image} className="w-30 h-30 border-1 border-primary"/>
@@ -62,12 +62,12 @@ const MessageInput = () => {
             <button type="button" className={`${image ?"text-green-500" : "text-zinc-300"}`} onClick={()=>fileInputRef.current?.click()}>
             <Image size={30}/>
             </button>
-        <button type="submit" className="btn btn-sm btn-circle cursor-pointer" disabled={!text.trim() && !image}>
+        <button type="submit" className=" btn btn-primary h-10 min-h-0 btn-sm cursor-pointer" disabled={!text.trim() && !image}>
             <Send size={24}/>
         </button>
         </div>
         </form>
-        
+
     </div>
     </div>
   )

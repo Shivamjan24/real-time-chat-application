@@ -31,7 +31,7 @@ const Login = () => {
       };
 
     return (
-        <div className="grid lg:grid-cols-2 max-h-full">
+        <div className="grid lg:grid-cols-2 h-screen overflow-auto">
             <div className="flex flex-col py-12">
                 <div className="mt-10 mb-2 mx-auto items-center justify-center">
                     <p className="text-2xl font-bold text-primary">Welcome Back!!!</p>
