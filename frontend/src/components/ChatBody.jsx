@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { UseChat } from '../store/UseChat'
 import { useEffect } from 'react'
 import { UseAuth } from '../store/UseAuth'
+import { formatMessageTime } from '../lib/utils'
 
 const ChatBody = () => {
 
@@ -35,7 +36,7 @@ const ChatBody = () => {
               </div>
             </div>
             <div className="chat-header">
-              <time className="text-xs opacity-50">{msg.createdAt?.split("T")[1]}</time>
+              <time className="text-xs opacity-50">{msg.createdAt?.split("T")[0]} {formatMessageTime(msg.createdAt)}</time>
             </div>
             {msg.image && msg.text && <div><img
                 src={msg?.image}
