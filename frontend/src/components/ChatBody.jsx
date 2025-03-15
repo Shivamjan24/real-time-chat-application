@@ -32,7 +32,7 @@ const ChatBody = () => {
               <div className="w-10 rounded-full">
                 <img
                   alt="sender avatar"
-                  src={msg.senderid==selectedUser._id ? selectedUser.profilepic : authUser.profilepic} />
+                  src={msg.senderid==selectedUser._id  ? selectedUser.profilepic || "./avatar.png" : authUser.profilepic || "./avatar.png"} />
               </div>
             </div>
             <div className="chat-header">
